@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mariia Eats — Nutrition Coach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FDF9F4;
+    --sand: #E8DDD0;
+    --terracotta: #C4745A;
+    --terracotta-dark: #A85D44;
+    --sage: #8A9E8C;
+    --sage-light: #B5C9B7;
+    --charcoal: #2C2622;
+    --mid: #6B5E54;
+    --light-text: #9A8E86;
+    --border: #E0D6CC;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--terracotta); font-style: italic; }
+
+  .nav-links {
+    display: flex;
+    gap: 2.4rem;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--mid);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--terracotta); }
+
+  .nav-cta {
+    background: var(--terracotta);
+    color: #fff !important;
+    padding: 0.55rem 1.4rem;
+    border-radius: 2px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--terracotta-dark) !important; color: #fff !important; }
+
+  .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+  .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--charcoal); transition: 0.3s; }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 4rem 6rem 5rem;
+    position: relative;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--terracotta);
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 300;
+    color: var(--charcoal);
+    margin-bottom: 1.6rem;
+    line-height: 1.05;
+  }
+  .hero-title em { color: var(--terracotta); font-style: italic; }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    color: var(--mid);
+    max-width: 420px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--terracotta);
+    color: #fff;
+    padding: 0.9rem 2.2rem;
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+
+  .btn-ghost {
+    color: var(--charcoal);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--charcoal);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--terracotta); border-color: var(--terracotta); }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    color: var(--charcoal);
+    font-weight: 300;
+  }
+  .stat-num span { color: var(--terracotta); }
+  .stat-label { font-size: 0.75rem; color: var(--light-text); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .hero-image {
+    position: relative;
+    overflow: hidden;
+    background: var(--sand);
+  }
+  .hero-image-inner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, #D4C4B8 0%, #C0AFA3 40%, #A89589 100%);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .hero-image-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+  .hero-img-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 1rem;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+  .hero-img-placeholder svg { opacity: 0.4; }
+  .hero-badge {
+    position: absolute;
+    bottom: 3rem;
+    left: -1.5rem;
+    background: #fff;
+    padding: 1.2rem 1.6rem;
+    box-shadow: 0 12px 40px rgba(44,38,34,0.12);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 220px;
+  }
+  .badge-icon { font-size: 1.8rem; }
+  .badge-text { font-size: 0.75rem; color: var(--mid); }
+  .badge-text strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--charcoal); font-weight: 400; }
+
+  /* ── SECTIONS COMMON ── */
+  section { padding: 7rem 5rem; }
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+  }
+  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--terracotta); }
+  .section-title {
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    margin-bottom: 1.2rem;
+    font-weight: 300;
+  }
+  .section-lead {
+    font-size: 1rem;
+    color: var(--mid);
+    max-width: 520px;
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--warm-white);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    padding: 8rem 5rem;
+  }
+
+  .about-image-wrap {
+    position: relative;
+  }
+  .about-img-box {
+    width: 100%;
+    padding-bottom: 120%;
+    background: var(--sand);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-img-box img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .about-img-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.8rem;
+    color: var(--mid);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+  .about-accent-box {
+    position: absolute;
+    bottom: -2rem;
+    right: -2rem;
+    width: 55%;
+    padding: 1.8rem;
+    background: var(--terracotta);
+    color: #fff;
+  }
+  .about-accent-box p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; line-height: 1.4; font-weight: 300; }
+  .about-accent-box small { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-top: 0.8rem; display: block; }
+
+  .about-values {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .value-item {
+    padding: 1.4rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--cream);
+  }
+  .value-item .vi-icon { font-size: 1.4rem; margin-bottom: 0.6rem; }
+  .value-item h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; margin-bottom: 0.3rem; }
+  .value-item p { font-size: 0.82rem; color: var(--mid); font-weight: 300; line-height: 1.6; }
+
+  /* ── SERVICES ── */
+  #services { background: var(--cream); }
+  .services-header { max-width: 600px; margin-bottom: 4rem; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+  }
+  .service-card {
+    background: var(--warm-white);
+    padding: 3rem 2.5rem;
+    position: relative;
+    transition: transform 0.25s;
+  }
+  .service-card:hover { transform: translateY(-4px); z-index: 1; box-shadow: 0 20px 50px rgba(44,38,34,0.08); }
+  .service-card.featured { background: var(--charcoal); color: #fff; }
+  .service-card.featured .service-price { color: var(--sage-light); }
+  .service-card.featured .service-desc { color: rgba(255,255,255,0.65); }
+  .service-card.featured .service-feature { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.75); }
+  .service-card.featured .service-feature::before { color: var(--sage-light); }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    color: var(--border);
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .service-card.featured .service-num { color: rgba(255,255,255,0.1); }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+  .service-price {
+    font-size: 0.78rem;
+    color: var(--terracotta);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  .service-desc { font-size: 0.88rem; color: var(--mid); font-weight: 300; line-height: 1.7; margin-bottom: 2rem; }
+  .service-features { list-style: none; margin-bottom: 2.5rem; }
+  .service-feature {
+    font-size: 0.82rem;
+    color: var(--mid);
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0.6rem;
+  }
+  .service-feature::before { content: '✓'; color: var(--terracotta); font-weight: 500; flex-shrink: 0; }
+  .btn-service {
+    display: inline-block;
+    padding: 0.75rem 1.8rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    font-weight: 500;
+    transition: 0.2s;
+  }
+  .btn-service-outline {
+    border: 1px solid var(--charcoal);
+    color: var(--charcoal);
+  }
+  .btn-service-outline:hover { background: var(--charcoal); color: #fff; }
+  .service-card.featured .btn-service-outline { border-color: rgba(255,255,255,0.4); color: #fff; }
+  .service-card.featured .btn-service-outline:hover { background: rgba(255,255,255,0.15); }
+
+  /* ── REVIEWS ── */
+  #reviews {
+    background: var(--charcoal);
+    color: #fff;
+  }
+  #reviews .section-tag { color: var(--sage-light); }
+  #reviews .section-tag::before { background: var(--sage-light); }
+  #reviews .section-title { color: #fff; }
+  #reviews .section-lead { color: rgba(255,255,255,0.55); }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(255,255,255,0.08);
+    margin-top: 1rem;
+  }
+  .review-card {
+    background: rgba(255,255,255,0.04);
+    padding: 2.5rem;
+    position: relative;
+  }
+  .review-stars { color: var(--terracotta); font-size: 0.85rem; margin-bottom: 1.5rem; letter-spacing: 2px; }
+  .review-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+  .review-author { display: flex; align-items: center; gap: 1rem; }
+  .review-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--mid);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .review-name { font-size: 0.85rem; font-weight: 500; color: #fff; }
+  .review-meta { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+
+  /* ── FAQ ── */
+  #faq { background: var(--warm-white); }
+  .faq-layout { display: grid; grid-template-columns: 1fr 1.6fr; gap: 6rem; align-items: start; }
+  .faq-sticky { position: sticky; top: 6rem; }
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.6rem 0;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    gap: 1rem;
+    user-select: none;
+  }
+  .faq-question:hover { color: var(--terracotta); }
+  .faq-icon {
+    width: 24px; height: 24px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    transition: transform 0.3s, background 0.2s;
+    color: var(--mid);
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--terracotta); border-color: var(--terracotta); color: #fff; }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    font-size: 0.88rem;
+    color: var(--mid);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  .faq-answer-inner { padding-bottom: 1.6rem; }
+  .faq-item.open .faq-answer { max-height: 300px; }
+
+  /* ── RESOURCES ── */
+  #resources { background: var(--cream); }
+  .resources-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 1rem; }
+  .resource-card {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .resource-card:hover { box-shadow: 0 12px 40px rgba(44,38,34,0.08); transform: translateY(-3px); }
+  .resource-img {
+    height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+  }
+  .resource-img.ri-1 { background: #E8DDD0; }
+  .resource-img.ri-2 { background: #D4E0D5; }
+  .resource-img.ri-3 { background: #E0D4D4; }
+  .resource-body { padding: 1.8rem; background: var(--warm-white); }
+  .resource-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+  .resource-title { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; margin-bottom: 0.6rem; }
+  .resource-desc { font-size: 0.82rem; color: var(--mid); font-weight: 300; line-height: 1.6; margin-bottom: 1.4rem; }
+  .resource-link {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid var(--charcoal);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .resource-link:hover { color: var(--terracotta); border-color: var(--terracotta); }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--sand);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0;
+  }
+  .contact-left {
+    padding: 7rem 5rem;
+    background: var(--charcoal);
+    color: #fff;
+  }
+  .contact-left .section-tag { color: var(--sage-light); }
+  .contact-left .section-tag::before { background: var(--sage-light); }
+  .contact-left .section-title { color: #fff; font-size: 2.8rem; }
+  .contact-left .section-lead { color: rgba(255,255,255,0.55); }
+  .contact-info { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 3rem; }
+  .contact-item { display: flex; align-items: flex-start; gap: 1rem; }
+  .contact-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+  .contact-item-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 0.2rem; }
+  .contact-item-val { font-size: 0.9rem; color: rgba(255,255,255,0.85); }
+  .contact-item-val a { color: inherit; text-decoration: none; }
+  .contact-item-val a:hover { color: var(--sage-light); }
+
+  .contact-right { padding: 7rem 5rem; background: var(--warm-white); }
+  .contact-right .section-tag { color: var(--terracotta); }
+  .contact-right .section-title { font-size: 2rem; }
+
+  .form-group { margin-bottom: 1.5rem; }
+  .form-group label { display: block; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.5rem; font-weight: 500; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--charcoal);
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--terracotta); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .btn-submit {
+    width: 100%;
+    padding: 1rem;
+    background: var(--terracotta);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-submit:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal);
+    color: rgba(255,255,255,0.45);
+    padding: 2.5rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+  }
+  footer .foot-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+  }
+  footer .foot-logo span { color: var(--terracotta); font-style: italic; }
+  footer .foot-links { display: flex; gap: 2rem; }
+  footer .foot-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+  footer .foot-links a:hover { color: var(--sage-light); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-text > * {
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-text > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-text > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-text > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-text > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-text > *:nth-child(5) { animation-delay: 0.55s; }
+
+  /* ── MOBILE NAV ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--cream); border-bottom: 1px solid var(--border); padding: 1.5rem; gap: 1.2rem; }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    #home { grid-template-columns: 1fr; }
+    .hero-image { display: none; }
+    .hero-text { padding: 3rem 1.5rem; }
+    #about { grid-template-columns: 1fr; padding: 5rem 1.5rem; gap: 3rem; }
+    .about-accent-box { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .services-grid, .reviews-grid, .resources-grid { grid-template-columns: 1fr; gap: 1px; }
+    #contact { grid-template-columns: 1fr; }
+    .contact-left, .contact-right { padding: 4rem 1.5rem; }
+    .faq-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .faq-sticky { position: static; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+    .about-values { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">Mariia<span>Eats</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#contact" class="nav-cta">Book a Call</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-text">
+    <div class="hero-tag">Certified Nutrition Coach</div>
+    <h1 class="hero-title">
+      Eat well,<br>feel <em>alive</em>,<br>live fully.
+    </h1>
+    <p class="hero-subtitle">
+      Personalized nutrition coaching for women 40+ who want sustainable energy, hormonal balance, and a body that feels like home — without obsessing over food.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book a Free Discovery Call</a>
+      <a href="#services" class="btn-ghost">See Services →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">200<span>+</span></div>
+        <div class="stat-label">Women Coached</div>
+      </div>
+      <div>
+        <div class="stat-num">5<span>yr</span></div>
+        <div class="stat-label">Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">98<span>%</span></div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-image-inner">
+      <!-- Replace src with your photo -->
+      <!-- <img src="mariia-hero.jpg" alt="Mariia, Nutrition Coach"> -->
+      <div class="hero-img-placeholder">
+        <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <span>Add your photo here</span>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-icon">🌿</div>
+      <div class="badge-text">
+        <strong>Holistic approach</strong>
+        Nutrition · Lifestyle · Mindset
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-image-wrap">
+    <div class="about-img-box">
+      <!-- <img src="mariia-about.jpg" alt="Mariia"> -->
+      <div class="about-img-placeholder">
+        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <span>Your photo</span>
+      </div>
+    </div>
+    <div class="about-accent-box">
+      <p>"Food is not the enemy — it's information for your body."</p>
+      <small>Mariia, Nutrition Coach</small>
+    </div>
+  </div>
+  <div class="about-content">
+    <div class="section-tag">About Me</div>
+    <h2 class="section-title">Hi, I'm Mariia — and I've been where you are.</h2>
+    <p class="section-lead">
+      After struggling with energy crashes, hormonal imbalance, and a complicated relationship with food in my 30s, I trained as a certified nutrition and wellness coach to help other women navigate this exact chapter of life.
+    </p>
+    <p style="font-size:0.9rem; color:var(--mid); font-weight:300; line-height:1.8; margin-bottom:2.5rem;">
+      My approach is rooted in science, but deeply personal. I don't believe in one-size-fits-all meal plans or cutting out entire food groups. Instead, I work with you to understand your body, your lifestyle, and your goals — and build something sustainable together.
+    </p>
+    <div class="about-values">
+      <div class="value-item">
+        <div class="vi-icon">🎓</div>
+        <h4>Certified Coach</h4>
+        <p>Precision Nutrition PN1 certified with 5+ years of practice</p>
+      </div>
+      <div class="value-item">
+        <div class="vi-icon">🔬</div>
+        <h4>Science-based</h4>
+        <p>Evidence-based nutrition tailored to women's hormonal cycles</p>
+      </div>
+      <div class="value-item">
+        <div class="vi-icon">💬</div>
+        <h4>1-on-1 Support</h4>
+        <p>Personal attention every step — you're never just a number</p>
+      </div>
+      <div class="value-item">
+        <div class="vi-icon">🌍</div>
+        <h4>Online Worldwide</h4>
+        <p>Working with clients across Europe, US, and Asia</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div class="section-tag">Services</div>
+    <h2 class="section-title">Choose your path to transformation</h2>
+    <p class="section-lead">Every program is built around you — your health history, your lifestyle, and your goals.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <div class="service-name">Discovery Session</div>
+      <div class="service-price">Free · 30 min</div>
+      <p class="service-desc">Not sure where to start? Let's talk. A no-pressure call to understand your situation and see if we're a good fit.</p>
+      <ul class="service-features">
+        <li class="service-feature">Nutrition assessment</li>
+        <li class="service-feature">Goal clarity session</li>
+        <li class="service-feature">Personalized recommendations</li>
+      </ul>
+      <a href="#contact" class="btn-service btn-service-outline">Book Free Call</a>
+    </div>
+    <div class="service-card featured">
+      <div class="service-num">02</div>
+      <div class="service-name">3-Month Transformation</div>
+      <div class="service-price">Most Popular · from $450</div>
+      <p class="service-desc">The full program. Deep work on nutrition, habits, and mindset — with weekly 1-on-1 support throughout.</p>
+      <ul class="service-features">
+        <li class="service-feature">Personalized meal strategy</li>
+        <li class="service-feature">Bi-weekly coaching calls</li>
+        <li class="service-feature">Custom grocery guides</li>
+        <li class="service-feature">Hormone & energy protocol</li>
+        <li class="service-feature">Unlimited messaging support</li>
+      </ul>
+      <a href="#contact" class="btn-service btn-service-outline">Get Started</a>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <div class="service-name">Single Consultation</div>
+      <div class="service-price">One-time · $120</div>
+      <p class="service-desc">A focused 60-min deep-dive into your nutrition. Walk away with an actionable plan you can start today.</p>
+      <ul class="service-features">
+        <li class="service-feature">Full nutrition audit</li>
+        <li class="service-feature">Meal plan framework</li>
+        <li class="service-feature">Written summary + action steps</li>
+      </ul>
+      <a href="#contact" class="btn-service btn-service-outline">Book Session</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-tag">Reviews</div>
+  <h2 class="section-title">Real women, real results</h2>
+  <p class="section-lead">The proof is in the people. Here's what clients say after working with Mariia.</p>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I finally stopped obsessing over calories and started actually listening to my body. My energy is back, my bloating is gone, and I feel 10 years younger."</p>
+      <div class="review-author">
+        <div class="review-avatar">S</div>
+        <div>
+          <div class="review-name">Sarah M.</div>
+          <div class="review-meta">3-Month Program · New York</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Mariia completely changed how I think about food. She doesn't give you a rigid diet — she gives you understanding. That's priceless."</p>
+      <div class="review-author">
+        <div class="review-avatar">L</div>
+        <div>
+          <div class="review-name">Laura K.</div>
+          <div class="review-meta">Single Consultation · London</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"After 45, I thought my metabolism was just 'broken'. Mariia showed me it wasn't. Three months in and I've lost 8kg while eating more than before."</p>
+      <div class="review-author">
+        <div class="review-avatar">A</div>
+        <div>
+          <div class="review-name">Anna P.</div>
+          <div class="review-meta">3-Month Program · Germany</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="faq-layout">
+    <div class="faq-sticky">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-title">Questions? I've got answers.</h2>
+      <p class="section-lead">Still on the fence? Here are the most common questions I get before we start working together.</p>
+      <a href="#contact" class="btn-primary" style="display:inline-block; margin-top:1rem;">Still have questions?</a>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          Do I need to follow a strict meal plan?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">No. I don't believe in rigid meal plans that make you feel like you're on a diet. Instead, we build a flexible framework that fits your real life — including social dinners, travel, and the occasional glass of wine.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          I'm over 45 — is nutrition coaching still effective for me?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Absolutely — in fact, this is exactly when nutrition becomes most powerful. Hormonal shifts, metabolism changes, and energy fluctuations after 40 can all be addressed with the right nutritional strategy. My programs are specifically designed for this life stage.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          How does online coaching work?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Everything is done via video calls (Zoom or Google Meet) and a messaging platform. You get access to a private client portal where all your materials, check-ins, and progress tracking live. Timezone differences are no problem — I work with clients worldwide.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          How quickly will I see results?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">Most clients notice improvements in energy and digestion within the first 2–3 weeks. Visible body changes typically follow within 6–8 weeks. The 3-month program is designed to create lasting results — not quick fixes that fade.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          What if I have dietary restrictions or health conditions?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">I always take your full health history into account. Whether you're gluten-free, vegetarian, have thyroid issues, or anything else — your plan is customized to your unique situation. I always recommend working alongside your doctor for medical conditions.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          What's the investment for the 3-month program?
+          <div class="faq-icon">+</div>
+        </div>
+        <div class="faq-answer"><div class="faq-answer-inner">The 3-month program starts from $450, depending on your goals and the level of support needed. Payment plans are available. The best way to get an accurate quote is to book a free discovery call — there's no obligation, just a conversation.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="section-tag">Resources</div>
+  <h2 class="section-title">Free guides to get you started</h2>
+  <p class="section-lead">Download these free resources and take your first step toward better health today.</p>
+  <div class="resources-grid">
+    <div class="resource-card">
+      <div class="resource-img ri-1">🥗</div>
+      <div class="resource-body">
+        <div class="resource-tag">Free Guide</div>
+        <h3 class="resource-title">The Hormone-Friendly Plate</h3>
+        <p class="resource-desc">A simple visual framework for building meals that support hormonal balance — no counting required.</p>
+        <a href="#" class="resource-link">Download PDF →</a>
+      </div>
+    </div>
+    <div class="resource-card">
+      <div class="resource-img ri-2">💧</div>
+      <div class="resource-body">
+        <div class="resource-tag">Checklist</div>
+        <h3 class="resource-title">7-Day Energy Reset</h3>
+        <p class="resource-desc">A week-by-week protocol to reduce brain fog, fatigue, and afternoon crashes — starting with food.</p>
+        <a href="#" class="resource-link">Download Checklist →</a>
+      </div>
+    </div>
+    <div class="resource-card">
+      <div class="resource-img ri-3">📖</div>
+      <div class="resource-body">
+        <div class="resource-tag">Mini Course</div>
+        <h3 class="resource-title">Metabolism After 40</h3>
+        <p class="resource-desc">A free 3-part email series busting myths about metabolism and showing what actually works after 40.</p>
+        <a href="#" class="resource-link">Get Free Access →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left">
+    <div class="section-tag">Let's Connect</div>
+    <h2 class="section-title">Ready to start your journey?</h2>
+    <p class="section-lead">Book a free 30-minute discovery call. No pitch, no pressure — just an honest conversation about your goals.</p>
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div>
+          <div class="contact-item-label">Email</div>
+          <div class="contact-item-val"><a href="mailto:hello@mariiaeats.com">hello@mariiaeats.com</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📱</div>
+        <div>
+          <div class="contact-item-label">Instagram</div>
+          <div class="contact-item-val"><a href="https://instagram.com/mariiaeats" target="_blank">@mariiaeats</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🌍</div>
+        <div>
+          <div class="contact-item-label">Working with clients</div>
+          <div class="contact-item-val">Worldwide · Online only</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <div class="section-tag">Send a Message</div>
+    <h2 class="section-title" style="margin-bottom:2rem;">Get in touch</h2>
+    <!-- For real form submission, connect to Formspree or EmailJS -->
+    <div class="form-group form-row">
+      <div>
+        <label>First Name</label>
+        <input type="text" placeholder="Anna">
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input type="text" placeholder="Smith">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" placeholder="anna@email.com">
+    </div>
+    <div class="form-group">
+      <label>I'm interested in</label>
+      <select>
+        <option>Free Discovery Call</option>
+        <option>3-Month Transformation Program</option>
+        <option>Single Consultation</option>
+        <option>Resources & Free Content</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Tell me about your goals</label>
+      <textarea placeholder="What's your main challenge right now? What would you love to achieve?"></textarea>
+    </div>
+    <button class="btn-submit">Send Message →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">Mariia<span>Eats</span></div>
+  <div>© 2025 Mariia Eats. All rights reserved.</div>
+  <div class="foot-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Nav toggle
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // Close nav on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+    });
+  });
+
+  // FAQ accordion
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = '';
+      if (a.getAttribute('href') === '#' + current) a.style.color = 'var(--terracotta)';
+    });
+  });
+
+  // Form submit (placeholder)
+  document.querySelector('.btn-submit').addEventListener('click', () => {
+    alert('Message sent! Mariia will get back to you within 24 hours. 💌\n\n(Connect Formspree or EmailJS to make this actually send email.)');
+  });
+</script>
+</body>
+</html>
