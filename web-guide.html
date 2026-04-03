@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гайд по веб-разработке 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: #1e1e2e;
+    --accent: #00ff88;
+    --accent2: #7c6aff;
+    --accent3: #ff6b35;
+    --text: #e8e8f0;
+    --muted: #6b6b88;
+    --card: #13131e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 56px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(0,255,136,0.3);
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    max-width: 500px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 40px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    min-width: 28px;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+
+  .line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Cards grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-accent, var(--accent));
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .card:hover {
+    border-color: rgba(0,255,136,0.2);
+    transform: translateY(-1px);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--card-accent, var(--accent));
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .card-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 10px;
+  }
+
+  .pill {
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.05);
+    color: #aaa;
+    border: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: 0.05em;
+  }
+
+  .pill.green { background: rgba(0,255,136,0.08); color: var(--accent); border-color: rgba(0,255,136,0.2); }
+  .pill.purple { background: rgba(124,106,255,0.08); color: var(--accent2); border-color: rgba(124,106,255,0.2); }
+  .pill.orange { background: rgba(255,107,53,0.08); color: var(--accent3); border-color: rgba(255,107,53,0.2); }
+
+  /* Table */
+  .table-wrap {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    background: rgba(0,255,136,0.05);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody td {
+    padding: 11px 14px;
+    font-size: 11px;
+    color: var(--muted);
+    border-bottom: 1px solid rgba(30,30,46,0.6);
+    vertical-align: top;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: rgba(255,255,255,0.02); color: var(--text); }
+
+  td:first-child {
+    color: #fff;
+    font-weight: 500;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  /* Recommendation block */
+  .rec-block {
+    background: rgba(0,255,136,0.04);
+    border: 1px solid rgba(0,255,136,0.15);
+    border-radius: 6px;
+    padding: 24px;
+  }
+
+  .rec-block h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  .rec-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px 14px;
+    align-items: start;
+    margin-bottom: 8px;
+    font-size: 11px;
+  }
+
+  .rec-key {
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .rec-val { color: var(--text); }
+
+  /* Stack path */
+  .path {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .path-step {
+    background: rgba(124,106,255,0.1);
+    border: 1px solid rgba(124,106,255,0.25);
+    color: var(--accent2);
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .path-arrow { color: var(--muted); font-size: 12px; }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="tag">Web Dev Guide · 2026</div>
+    <h1>Всё что нужно знать<br>перед созданием <span>сайта</span></h1>
+    <p class="subtitle">Структурированная выжимка от практикующего разработчика. Без воды — только факты и современный стек.</p>
+  </div>
+
+  <!-- 1. Типы сайтов -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Типы сайтов</h2>
+      <div class="line"></div>
+    </div>
+    <div class="grid">
+      <div class="card" style="--card-accent: #00ff88;">
+        <div class="card-label">Landing</div>
+        <div class="card-title">Лендинг</div>
+        <div class="card-desc">Одностраничник под конкретный продукт/оффер. Максимум конверсий, минимум страниц.</div>
+        <div class="card-tags">
+          <span class="pill green">HTML/CSS/JS</span>
+          <span class="pill green">React</span>
+        </div>
+      </div>
+      <div class="card" style="--card-accent: #7c6aff;">
+        <div class="card-label">Corporate</div>
+        <div class="card-title">Корпоративный сайт</div>
+        <div class="card-desc">О компании, услуги, контакты. Несколько страниц, контент редко меняется.</div>
+        <div class="card-tags">
+          <span class="pill purple">Next.js</span>
+          <span class="pill purple">WordPress</span>
+        </div>
+      </div>
+      <div class="card" style="--card-accent: #ff6b35;">
+        <div class="card-label">E-commerce</div>
+        <div class="card-title">Интернет-магазин</div>
+        <div class="card-desc">Каталог товаров, корзина, оплата, личный кабинет. Сложная бизнес-логика.</div>
+        <div class="card-tags">
+          <span class="pill orange">Shopify</span>
+          <span class="pill orange">Next.js</span>
+        </div>
+      </div>
+      <div class="card" style="--card-accent: #00bfff;">
+        <div class="card-label">Blog / Media</div>
+        <div class="card-title">Блог / СМИ</div>
+        <div class="card-desc">Статьи, новости, SEO-трафик. Часто обновляемый контент, нужна CMS.</div>
+        <div class="card-tags">
+          <span class="pill" style="color:#00bfff;background:rgba(0,191,255,0.08);border-color:rgba(0,191,255,0.2)">Ghost</span>
+          <span class="pill" style="color:#00bfff;background:rgba(0,191,255,0.08);border-color:rgba(0,191,255,0.2)">Next.js</span>
+        </div>
+      </div>
+      <div class="card" style="--card-accent: #ff4fa3;">
+        <div class="card-label">SaaS / Web App</div>
+        <div class="card-title">Веб-приложение</div>
+        <div class="card-desc">Полноценный сервис: авторизация, база данных, дашборд, API. Самый сложный тип.</div>
+        <div class="card-tags">
+          <span class="pill" style="color:#ff4fa3;background:rgba(255,79,163,0.08);border-color:rgba(255,79,163,0.2)">React/Next.js</span>
+          <span class="pill" style="color:#ff4fa3;background:rgba(255,79,163,0.08);border-color:rgba(255,79,163,0.2)">Node/Python</span>
+        </div>
+      </div>
+      <div class="card" style="--card-accent: #ffd700;">
+        <div class="card-label">Portfolio</div>
+        <div class="card-title">Портфолио</div>
+        <div class="card-desc">Личный бренд, showcasing работ. Важен дизайн и скорость загрузки.</div>
+        <div class="card-tags">
+          <span class="pill" style="color:#ffd700;background:rgba(255,215,0,0.08);border-color:rgba(255,215,0,0.2)">Astro</span>
+          <span class="pill" style="color:#ffd700;background:rgba(255,215,0,0.08);border-color:rgba(255,215,0,0.2)">HTML</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Языки и технологии -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Языки и технологии (frontend)</h2>
+      <div class="line"></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Технология</th>
+            <th>Для чего</th>
+            <th>Когда выбирать</th>
+            <th>Порог входа</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HTML + CSS + JS</td>
+            <td>Базовый стек. Любой сайт на этом работает «под капотом»</td>
+            <td>Лендинги, простые сайты, прототипы</td>
+            <td><span class="pill green">Низкий</span></td>
+          </tr>
+          <tr>
+            <td>React</td>
+            <td>Библиотека UI. Компонентный подход, SPA-приложения</td>
+            <td>Веб-приложения, дашборды, SaaS</td>
+            <td><span class="pill">Средний</span></td>
+          </tr>
+          <tr>
+            <td>Next.js</td>
+            <td>React-фреймворк. SSR, SSG, файловый роутинг, API routes</td>
+            <td>Почти всё — де-факто стандарт 2025-26</td>
+            <td><span class="pill">Средний</span></td>
+          </tr>
+          <tr>
+            <td>Astro</td>
+            <td>Статика + частичная гидрация. Максимальная скорость</td>
+            <td>Блоги, лендинги, SEO-сайты</td>
+            <td><span class="pill green">Низкий</span></td>
+          </tr>
+          <tr>
+            <td>Vue / Nuxt</td>
+            <td>Альтернатива React. Более мягкая кривая обучения</td>
+            <td>Корпоративные проекты, командная разработка</td>
+            <td><span class="pill">Средний</span></td>
+          </tr>
+          <tr>
+            <td>Svelte / SvelteKit</td>
+            <td>Компиляция в чистый JS. Минимум runtime-кода</td>
+            <td>Перформативные сайты, нишевые проекты</td>
+            <td><span class="pill">Средний</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3. Backend -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Backend (серверная часть)</h2>
+      <div class="line"></div>
+    </div>
+    <div class="grid grid-3">
+      <div class="card" style="--card-accent:#00ff88;">
+        <div class="card-label">Node.js</div>
+        <div class="card-title">JS/TypeScript</div>
+        <div class="card-desc">Единый язык на фронте и бэке. Экосистема npm. Фреймворки: Express, Fastify, Hono.</div>
+      </div>
+      <div class="card" style="--card-accent:#7c6aff;">
+        <div class="card-label">Python</div>
+        <div class="card-title">FastAPI / Django</div>
+        <div class="card-desc">Идеален при работе с AI/ML. FastAPI — быстрый REST API, Django — полный стек с ORM и админкой.</div>
+      </div>
+      <div class="card" style="--card-accent:#ff6b35;">
+        <div class="card-label">PHP</div>
+        <div class="card-title">Laravel</div>
+        <div class="card-desc">До сих пор жив. Laravel — зрелый MVC-фреймворк. WordPress построен на PHP.</div>
+      </div>
+      <div class="card" style="--card-accent:#00bfff;">
+        <div class="card-label">Go</div>
+        <div class="card-title">Golang</div>
+        <div class="card-desc">Высоконагруженные API. Компилируется в бинарник, работает молниеносно.</div>
+      </div>
+      <div class="card" style="--card-accent:#ffd700;">
+        <div class="card-label">BaaS</div>
+        <div class="card-title">Supabase / Firebase</div>
+        <div class="card-desc">Backend как сервис. Без написания серверного кода — база данных, авторизация, хранилище.</div>
+      </div>
+      <div class="card" style="--card-accent:#ff4fa3;">
+        <div class="card-label">Serverless</div>
+        <div class="card-title">Vercel / Cloudflare</div>
+        <div class="card-desc">Edge-функции. Пишешь функцию — платформа сама масштабирует. Идеально с Next.js.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. CMS / Редактирование -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Редактирование контента (CMS)</h2>
+      <div class="line"></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>CMS</th>
+            <th>Тип</th>
+            <th>Плюсы</th>
+            <th>Для кого</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>WordPress</td>
+            <td><span class="pill">Традиционная</span></td>
+            <td>Огромная экосистема плагинов, визуальный редактор, хостинг везде</td>
+            <td>Блоги, корп. сайты, не-разработчики</td>
+          </tr>
+          <tr>
+            <td>Sanity</td>
+            <td><span class="pill purple">Headless</span></td>
+            <td>Гибкая схема данных, GROQ-запросы, real-time</td>
+            <td>Разработчики + нетехнические редакторы</td>
+          </tr>
+          <tr>
+            <td>Contentful</td>
+            <td><span class="pill purple">Headless</span></td>
+            <td>Энтерпрайз-уровень, богатый API, много интеграций</td>
+            <td>Крупные компании</td>
+          </tr>
+          <tr>
+            <td>Strapi</td>
+            <td><span class="pill green">Self-hosted</span></td>
+            <td>Open-source, полный контроль, REST + GraphQL</td>
+            <td>Разработчики с собственным сервером</td>
+          </tr>
+          <tr>
+            <td>Payload CMS</td>
+            <td><span class="pill green">Self-hosted</span></td>
+            <td>TypeScript, Next.js интеграция, code-first подход</td>
+            <td>JS-разработчики, современные проекты</td>
+          </tr>
+          <tr>
+            <td>Ghost</td>
+            <td><span class="pill">Специализированная</span></td>
+            <td>Создан для блогов и медиа, встроенная монетизация, красивый редактор</td>
+            <td>Авторы, медиа-проекты</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5. Публикация -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Публикация и хостинг</h2>
+      <div class="line"></div>
+    </div>
+    <div class="grid">
+      <div class="card" style="--card-accent:#00ff88;">
+        <div class="card-label">★ Рекомендовано 2026</div>
+        <div class="card-title">Vercel</div>
+        <div class="card-desc">Push в GitHub → сайт онлайн за секунды. CDN по всему миру. Идеально для Next.js. Бесплатный тариф щедрый.</div>
+        <div class="card-tags">
+          <span class="pill green">Serverless</span>
+          <span class="pill green">CDN</span>
+          <span class="pill green">CI/CD</span>
+        </div>
+      </div>
+      <div class="card" style="--card-accent:#ff6b35;">
+        <div class="card-label">Статика / JAMstack</div>
+        <div class="card-title">Cloudflare Pages</div>
+        <div class="card-desc">Быстрее Vercel на статике. Workers на edge. Бесплатный тариф без ограничений по bandwidth.</div>
+        <div class="card-tags">
+          <span class="pill orange">Edge</span>
+          <span class="pill orange">Free</span>
+        </div>
+      </div>
+      <div class="card" style="--card-accent:#7c6aff;">
+        <div class="card-label">VPS / Полный контроль</div>
+        <div class="card-title">DigitalOcean / Hetzner</div>
+        <div class="card-desc">Виртуальный сервер. Полный root-доступ. Docker + Nginx. Нужны DevOps-знания. Hetzner — дёшево и надёжно.</div>
+        <div class="card-tags">
+          <span class="pill purple">Docker</span>
+          <span class="pill purple">Nginx</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Администрирование -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>Администрирование</h2>
+      <div class="line"></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Задача</th>
+            <th>Инструмент</th>
+            <th>Примечание</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Мониторинг ошибок</td>
+            <td>Sentry</td>
+            <td>Ловит JS-ошибки в проде, трекинг перфоманса</td>
+          </tr>
+          <tr>
+            <td>Аналитика</td>
+            <td>Plausible / Google Analytics 4</td>
+            <td>Plausible — без cookies, GDPR-friendly. GA4 — мощнее, сложнее</td>
+          </tr>
+          <tr>
+            <td>База данных</td>
+            <td>PostgreSQL + Neon/Supabase</td>
+            <td>Postgres — стандарт. Neon/Supabase — managed-хостинг с бесплатным тарифом</td>
+          </tr>
+          <tr>
+            <td>Авторизация</td>
+            <td>Clerk / Auth.js / Supabase Auth</td>
+            <td>Clerk — plug-and-play, Auth.js — open-source, гибко</td>
+          </tr>
+          <tr>
+            <td>Домен и DNS</td>
+            <td>Cloudflare + любой регистратор</td>
+            <td>DNS через Cloudflare — быстро, защита от DDoS, бесплатно</td>
+          </tr>
+          <tr>
+            <td>SSL-сертификат</td>
+            <td>Автоматически</td>
+            <td>Vercel, Cloudflare, Netlify выдают HTTPS автоматически — вручную настраивать не нужно</td>
+          </tr>
+          <tr>
+            <td>Деплой / CI-CD</td>
+            <td>GitHub Actions + Vercel</td>
+            <td>Пуш в main → автодеплой. Бесплатно для public репозиториев</td>
+          </tr>
+          <tr>
+            <td>Email-транзакции</td>
+            <td>Resend / Postmark</td>
+            <td>Resend — лучший DX в 2025-26, нативная интеграция с React Email</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Recommendation -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">→</span>
+      <h2>Рекомендуемый современный стек</h2>
+      <div class="line"></div>
+    </div>
+    <div class="grid">
+      <div class="rec-block" style="grid-column: 1 / -1;">
+        <h3>// Универсальный старт 2026</h3>
+        <div class="rec-row"><span class="rec-key">Frontend:</span><span class="rec-val">Next.js 15 + TypeScript + Tailwind CSS</span></div>
+        <div class="rec-row"><span class="rec-key">Backend:</span><span class="rec-val">Next.js API Routes или Hono (если отдельный бэк)</span></div>
+        <div class="rec-row"><span class="rec-key">БД:</span><span class="rec-val">PostgreSQL через Supabase или Neon</span></div>
+        <div class="rec-row"><span class="rec-key">CMS:</span><span class="rec-val">Sanity (если нужен редактор) или MDX-файлы (если технически)</span></div>
+        <div class="rec-row"><span class="rec-key">Auth:</span><span class="rec-val">Clerk (быстро) или Auth.js (контроль)</span></div>
+        <div class="rec-row"><span class="rec-key">Хостинг:</span><span class="rec-val">Vercel (деплой) + Cloudflare (домен/DNS)</span></div>
+        <div class="rec-row"><span class="rec-key">Аналитика:</span><span class="rec-val">Plausible или Vercel Analytics</span></div>
+        <div class="path">
+          <span class="path-step">GitHub</span>
+          <span class="path-arrow">→</span>
+          <span class="path-step">Push</span>
+          <span class="path-arrow">→</span>
+          <span class="path-step">Vercel CI</span>
+          <span class="path-arrow">→</span>
+          <span class="path-step">Prod</span>
+          <span class="path-arrow">→</span>
+          <span class="path-step">Cloudflare DNS</span>
+          <span class="path-arrow">→</span>
+          <span class="path-step">yourdomain.com ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Web Dev Guide · 2026 · Составлено с учётом актуального рынка
+  </div>
+
+</div>
+</body>
+</html>
