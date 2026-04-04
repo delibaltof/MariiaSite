@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════╗
+  ║  mariiaeats — Fitness & Nutrition Coach                  ║
+  ║  Static one-page site · HTML5 + CSS3 + Vanilla JS        ║
+  ╠══════════════════════════════════════════════════════════╣
+  ║  DEPLOYMENT (GitHub Pages):                              ║
+  ║  1. Create repo "mariiaeats" on github.com               ║
+  ║  2. Upload all files from this folder                    ║
+  ║  3. Settings → Pages → Deploy from branch → main → /    ║
+  ║  4. Live at: https://YOUR-USERNAME.github.io/mariiaeats  ║
+  ╠══════════════════════════════════════════════════════════╣
+  ║  BEFORE GOING LIVE — update in js/main.js:               ║
+  ║  · SITE.formspree  → real Formspree endpoint             ║
+  ║  · SITE.social     → real social media URLs              ║
+  ║  · SITE.pricing    → real prices                         ║
+  ║  · SITE.certificates → real certificates                 ║
+  ║  · SITE.about.image  → real photo URL                    ║
+  ║  Replace images/og-image.svg → real photo (1200×630)     ║
+  ╚══════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Online fitness & nutrition coaching personalised for adults 30–50. Real results, no generic plans." />
+  <meta name="theme-color" content="#0a0a0a" />
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="mariiaeats — Fitness & Nutrition Coach" />
+  <meta property="og:description" content="Transform your body, your life. Online coaching personalised for adults 30–50." />
+  <meta property="og:image"       content="images/og-image.svg" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:locale"      content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="mariiaeats — Fitness & Nutrition Coach" />
+  <meta name="twitter:description" content="Transform your body, your life." />
+  <meta name="twitter:image"       content="images/og-image.svg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <title>mariiaeats — Fitness &amp; Nutrition Coach</title>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════ -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <!-- Logo injected by JS -->
+      <a href="#hero" class="logo" aria-label="mariiaeats — back to top"></a>
+
+      <!-- Desktop links injected by JS -->
+      <ul class="nav-links" role="list"></ul>
+
+      <!-- Desktop CTA injected by JS -->
+      <a href="#contact" class="btn btn-pink nav-cta"></a>
+
+      <!-- Hamburger (mobile only) -->
+      <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-drawer">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <!-- Mobile slide-in drawer -->
+    <div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+      <button class="drawer-close" aria-label="Close navigation menu">✕</button>
+      <ul class="drawer-links" role="list"></ul>
+      <a href="#contact" class="btn btn-pink drawer-cta"></a>
+    </div>
+    <div class="drawer-overlay" aria-hidden="true"></div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════ -->
+  <section id="hero" aria-label="Hero">
+    <!-- Grain texture overlay -->
+    <div class="hero-grain" aria-hidden="true"></div>
+    <!-- Pink radial glow -->
+    <div class="hero-glow"  aria-hidden="true"></div>
+
+    <div class="container hero-content">
+      <!-- Left: text -->
+      <div class="hero-text">
+        <!-- H1 injected by JS -->
+        <h1 class="hero-h1"></h1>
+        <!-- Subheadline injected by JS -->
+        <p class="hero-sub"></p>
+        <!-- CTA buttons injected by JS -->
+        <div class="hero-btns" role="group" aria-label="Call to action"></div>
+        <!-- Stats injected by JS -->
+        <div class="hero-stats" role="list"></div>
+      </div>
+      <!-- Right: photo -->
+      <div class="hero-img-wrap">
+        <img src="images/A-692.jpg" alt="mariiaeats" class="hero-img">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       ABOUT
+  ═══════════════════════════════════════ -->
+  <section id="about" aria-labelledby="about-heading">
+    <div class="container about-grid">
+
+      <!-- Photo column -->
+      <div class="about-img-wrap fade-up">
+        <!-- src injected by JS -->
+        <img class="about-img" alt="" loading="lazy" width="600" height="800" />
+        <!-- Badge injected by JS -->
+        <div class="about-badge" aria-hidden="true"></div>
+      </div>
+
+      <!-- Text column injected by JS -->
+      <div class="about-text fade-up">
+        <span class="section-tag"></span>
+        <h2 class="about-heading" id="about-heading"></h2>
+        <p class="about-bio"></p>
+        <div class="about-pills" role="list"></div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       SERVICES
+  ═══════════════════════════════════════ -->
+  <section id="services" aria-labelledby="services-heading">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">What I Offer</span>
+        <h2 id="services-heading">Services <em>tailored</em> to you</h2>
+      </div>
+      <!-- Cards injected by JS -->
+      <div class="services-grid"></div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       PRICING
+  ═══════════════════════════════════════ -->
+  <section id="pricing" aria-labelledby="pricing-heading">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">Investment</span>
+        <h2 id="pricing-heading">Simple, <em>transparent</em> pricing</h2>
+        <!-- TODO: update pricing before launch -->
+      </div>
+      <!-- Cards injected by JS -->
+      <div class="pricing-grid"></div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       TESTIMONIALS
+  ═══════════════════════════════════════ -->
+  <section id="reviews" aria-labelledby="reviews-heading">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">Real Results</span>
+        <h2 id="reviews-heading">What my <em>clients</em> say</h2>
+      </div>
+      <!-- Cards injected by JS -->
+      <div class="testimonials-grid"></div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       FREE GUIDES
+  ═══════════════════════════════════════ -->
+  <section id="guides" aria-labelledby="guides-heading">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">Free Resources</span>
+        <h2 id="guides-heading">Download your <em>free guides</em></h2>
+      </div>
+      <!-- Cards injected by JS -->
+      <div class="guides-grid"></div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       CERTIFICATES
+  ═══════════════════════════════════════ -->
+  <section id="certificates" aria-labelledby="certs-heading">
+    <div class="container">
+      <div class="section-header fade-up">
+        <span class="section-tag">Credentials</span>
+        <h2 id="certs-heading">Certified &amp; <em>qualified</em></h2>
+        <!-- TODO: update certificates with real credentials -->
+      </div>
+      <!-- Cards injected by JS -->
+      <div class="certs-grid"></div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       CONTACT
+  ═══════════════════════════════════════ -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="container contact-grid">
+
+      <!-- Intro + socials (injected by JS) -->
+      <div class="contact-intro fade-up">
+        <span class="section-tag">Get Started</span>
+        <h2 id="contact-heading">Let's work <em>together</em></h2>
+        <p class="contact-desc"></p>
+        <div class="contact-socials" aria-label="Social media links"></div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form-wrap fade-up">
+        <form id="contact-form" novalidate aria-label="Contact form">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name <span aria-hidden="true">*</span></label>
+              <input type="text"   id="name"  name="name"  placeholder="Your name"  autocomplete="name" required />
+              <span class="field-error" id="name-error"  role="alert" aria-live="polite"></span>
+            </div>
+            <div class="form-group">
+              <label for="age">Age <span aria-hidden="true">*</span></label>
+              <input type="number" id="age"   name="age"   placeholder="Your age"   min="16" max="100" required />
+              <span class="field-error" id="age-error"   role="alert" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address <span aria-hidden="true">*</span></label>
+            <input type="email"  id="email" name="email" placeholder="your@email.com" autocomplete="email" required />
+            <span class="field-error" id="email-error" role="alert" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="goal">Your Goal <span aria-hidden="true">*</span></label>
+            <select id="goal" name="goal" required>
+              <option value="">Select your goal</option>
+              <option value="Weight Loss">Weight Loss</option>
+              <option value="Muscle Gain">Muscle Gain</option>
+              <option value="General Health">General Health</option>
+              <option value="Body Recomposition">Body Recomposition</option>
+            </select>
+            <span class="field-error" id="goal-error" role="alert" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="service">Service Interest <span aria-hidden="true">*</span></label>
+            <select id="service" name="service" required>
+              <option value="">Select a service</option>
+              <option value="Personal Training">Personal Training</option>
+              <option value="Nutrition Plan">Nutrition Plan</option>
+              <option value="Online Coaching">Online Coaching</option>
+              <option value="Full Transformation">Full Transformation</option>
+            </select>
+            <span class="field-error" id="service-error" role="alert" aria-live="polite"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="activity">Activity Level</label>
+            <select id="activity" name="activity">
+              <option value="">Select activity level</option>
+              <option value="Sedentary">Sedentary (desk job, little exercise)</option>
+              <option value="Light">Light (1–2 days/week)</option>
+              <option value="Moderate">Moderate (3–4 days/week)</option>
+              <option value="Very Active">Very Active (5+ days/week)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Tell me about your goals <span aria-hidden="true">*</span></label>
+            <textarea id="message" name="message" rows="4"
+              placeholder="What do you want to achieve? Any injuries or dietary restrictions?"
+              required></textarea>
+            <span class="field-error" id="message-error" role="alert" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" class="btn btn-pink btn-submit" id="submit-btn">
+            <span class="btn-text">Send Message</span>
+            <span class="btn-spinner" aria-hidden="true"></span>
+          </button>
+
+          <div class="form-success"   id="form-success"   aria-live="polite"></div>
+          <div class="form-error-msg" id="form-error-msg" aria-live="assertive"></div>
+
+          <!-- TODO: replace Formspree endpoint in SITE.formspree inside js/main.js -->
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer id="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <!-- Logo injected by JS -->
+      <a href="#hero" class="logo footer-logo" aria-label="mariiaeats — back to top"></a>
+      <!-- Copyright injected by JS -->
+      <p class="footer-copy"></p>
+      <!-- Social icons injected by JS -->
+      <div class="footer-socials" aria-label="Social media"></div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
